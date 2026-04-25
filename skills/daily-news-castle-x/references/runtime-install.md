@@ -6,6 +6,9 @@
 
 让用户打开仓库 Releases 页面，选择最新版本，并下载对应平台文件：
 
+- Release 固定入口：`https://github.com/castle-x/daily-news/releases`
+- 最新版本直达：`https://github.com/castle-x/daily-news/releases/latest`
+
 - `daily-news-linux-amd64.tar.gz`
 - `daily-news-linux-arm64.tar.gz`
 - `daily-news-darwin-amd64.tar.gz`
@@ -22,7 +25,7 @@ chmod +x daily-news-<platform>
 ./daily-news-<platform>
 ```
 
-默认监听：`http://localhost:8080`
+默认监听：`http://localhost:17631`
 
 ### Windows
 
@@ -31,6 +34,17 @@ chmod +x daily-news-<platform>
 ```powershell
 .\daily-news-windows-amd64.exe
 ```
+
+## 严格限制（默认生效）
+
+- 未经用户明确授权，禁止引导或执行源码开发流程。
+- 禁止默认执行：
+  - `go build`
+  - `npm install`
+  - `npm run dev`
+  - `make dev`
+- 默认只允许“下载 Release 二进制 -> 运行”这一路径。
+- 若用户明确要求“源码开发/调试”，再切换到开发模式并提前说明原因。
 
 ## 3) 初始化数据目录
 

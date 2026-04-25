@@ -25,7 +25,7 @@ export default defineConfig(({mode}) => {
       hmr: process.env.DISABLE_HMR !== 'true',
       proxy: {
         '/apis': {
-          target: 'http://localhost:8080',
+          target: 'http://localhost:17631',
           changeOrigin: true,
         },
       },

@@ -5,7 +5,7 @@ BIN_DIR := bin
 	build-linux build-linux-arm64 build-macos build-macos-arm64 build-windows build-all
 
 dev:
-	@echo "Starting backend (:8080) and frontend (:5173)..."
+	@echo "Starting backend (:17631) and frontend (:5173)..."
 	@bash -c 'set -m; go run ./cmd/app & npm run dev; kill %1 2>/dev/null || true'
 
 run-backend:

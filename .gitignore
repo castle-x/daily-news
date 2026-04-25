@@ -3,8 +3,15 @@ build/
 dist/
 site/dist/
 bin/
+release-dist/
 coverage/
 .DS_Store
 *.log
 .env*
 !.env.example
+.cursor/
+*.zip
+*.tar.gz
+*.tgz
+.daily-news/
+Data/

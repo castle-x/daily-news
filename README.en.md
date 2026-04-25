@@ -16,7 +16,7 @@ Its core goals are:
 Send the following prompt to your AI assistant to get started quickly:
 
 ```text
-Please load and use the skill at skills/daily-news-castle-x, first check whether follow-builders and larksuite/cli are already available, then generate today's news and write it to ~/.daily-news/data/<category>/YYYY-MM-DD.json according to the skill schema.
+Please load and use the skill at https://github.com/castle-x/daily-news/tree/main/skills/daily-news-castle-x, first check whether follow-builders and larksuite/cli are already available, then generate today's news and write it to ~/.daily-news/data/<category>/YYYY-MM-DD.json according to the skill schema.
 ```
 
 ## Project Positioning

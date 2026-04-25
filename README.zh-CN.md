@@ -16,7 +16,7 @@
 把下面这句话发给你的 AI 助手，即可快速开始安装并使用本项目技能：
 
 ```text
-请加载并使用 skills/daily-news-castle-x 这个技能，先检查本地可用工具（follow-builders、larksuite/cli），然后按技能规范生成并写入今日新闻到 ~/.daily-news/data/<category>/YYYY-MM-DD.json。
+请加载并使用 https://github.com/castle-x/daily-news/tree/main/skills/daily-news-castle-x 这个技能，先检查本地可用工具（follow-builders、larksuite/cli），然后按技能规范生成并写入今日新闻到 ~/.daily-news/data/<category>/YYYY-MM-DD.json。
 ```
 
 ## 项目定位

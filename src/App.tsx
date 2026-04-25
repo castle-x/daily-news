@@ -21,6 +21,7 @@ const TOKENS = {
   switchLanguage: 'actions.switchLanguage',
   contextualLinks: 'sidebar.contextualLinks',
   keyObservations: 'entry.keyObservations',
+  emptyCategory: 'entry.emptyCategory',
   footerCopyright: 'footer.copyright',
   footerPrivacyPolicy: 'footer.privacyPolicy',
   footerTermsOfService: 'footer.termsOfService',
@@ -277,6 +278,14 @@ export default function App() {
       />
 
       <main className="flex-grow max-w-container-max mx-auto w-full px-8 py-16 space-y-20">
+        {articles.length === 0 && (
+          <section className="py-20 text-center">
+            <p className="font-serif text-2xl text-charcoal-muted italic">
+              {t(TOKENS.emptyCategory)}
+            </p>
+          </section>
+        )}
+
         {articles.map((article) => (
           <Entry
             key={article.id}

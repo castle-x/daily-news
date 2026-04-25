@@ -1,0 +1,32 @@
+{
+  "en": {
+    "brand": "Daily News",
+    "nav.ai": "AI",
+    "nav.socialTrends": "Social Trends",
+    "nav.miscellaneous": "Miscellaneous",
+    "actions.search": "Search",
+    "actions.switchLanguage": "Switch language",
+    "sidebar.contextualLinks": "Contextual Links",
+    "entry.keyObservations": "Key Observations",
+    "footer.copyright": "© 2024 Daily News. All rights reserved.",
+    "footer.privacyPolicy": "Privacy Policy",
+    "footer.termsOfService": "Terms of Service",
+    "footer.archive": "Archive",
+    "footer.about": "About"
+  },
+  "zh": {
+    "brand": "每日新闻",
+    "nav.ai": "人工智能",
+    "nav.socialTrends": "社会趋势",
+    "nav.miscellaneous": "杂项",
+    "actions.search": "搜索",
+    "actions.switchLanguage": "切换语言",
+    "sidebar.contextualLinks": "相关链接",
+    "entry.keyObservations": "关键观察",
+    "footer.copyright": "© 2024 每日新闻。保留所有权利。",
+    "footer.privacyPolicy": "隐私政策",
+    "footer.termsOfService": "服务条款",
+    "footer.archive": "归档",
+    "footer.about": "关于"
+  }
+}

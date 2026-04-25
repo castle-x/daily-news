@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Newsreader", serif;
+  --font-sans: "Work Sans", sans-serif;
+
+  --color-paper: #fdf9f0;
+  --color-paper-dim: #f5f2ed;
+  --color-charcoal: #181919;
+  --color-charcoal-muted: #444748;
+  --color-border: #dedad1;
+  --color-accent: #6c5b4d;
+
+  --spacing-container-max: 1120px;
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-charcoal font-sans antialiased;
+  }
+}
+
+.markdown-body a {
+  @apply underline underline-offset-4 decoration-border hover:text-charcoal hover:decoration-charcoal transition-all;
+}

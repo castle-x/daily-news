@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://castle-x.github.io/daily-news/schemas/runbook.schema.json",
+  "title": "DailyNewsRunbookInput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_type"],
+  "properties": {
+    "task_type": {
+      "type": "string",
+      "enum": ["install_and_run", "generate_news_json", "fetch_and_generate"]
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["ai", "social-trends", "miscellaneous"]
+    },
+    "topic_hint": {
+      "type": "string"
+    },
+    "language_preference": {
+      "type": "string",
+      "enum": ["en", "zh", "bilingual"]
+    },
+    "release_tag": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "linux-amd64",
+        "linux-arm64",
+        "darwin-amd64",
+        "darwin-arm64",
+        "windows-amd64"
+      ]
+    }
+  }
+}

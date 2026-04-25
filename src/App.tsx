@@ -6,10 +6,10 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Languages, ChevronUp, ChevronDown, MoreHorizontal } from 'lucide-react';
-import { ArticleEntry, Category, Language } from './constants';
+import { ArticleEntry, Category } from './constants';
 import uiText from './i18n/ui.json';
 
-type Language = keyof typeof uiText;
+type UILanguage = keyof typeof uiText;
 type Token = keyof (typeof uiText)['en'];
 
 const TOKENS = {
@@ -27,6 +27,11 @@ const TOKENS = {
   footerArchive: 'footer.archive',
   footerAbout: 'footer.about'
 } as const satisfies Record<string, Token>;
+
+function resolveDefaultLanguage(): UILanguage {
+  const candidate = String(import.meta.env.VITE_DEFAULT_LANGUAGE ?? '').toLowerCase();
+  return candidate === 'en' ? 'en' : 'zh';
+}
 
 function Navbar({
   t,
@@ -224,7 +229,7 @@ function Footer({ t }: { t: (token: Token) => string }) {
 export default function App() {
   const [activeCategory, setActiveCategory] = useState<Category>('ai');
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<UILanguage>(resolveDefaultLanguage());
   const [articles, setArticles] = useState<ArticleEntry[]>([]);
   const t = (token: Token) => uiText[language][token];
 

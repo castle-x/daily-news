@@ -1,6 +1,6 @@
 {
-  "name": "The Dispatch",
-  "description": "A minimalist editorial journal focusing on AI trends and digital philosophy.",
+  "name": "Daily News",
+  "description": "A bilingual daily news digest with structured summaries and links.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

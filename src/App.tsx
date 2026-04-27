@@ -174,7 +174,7 @@ function Entry({
               <div className="lg:col-span-8 space-y-6">
                 <h3 className="font-serif text-2xl font-medium">{article.title}</h3>
                 <div className="markdown-body">
-                  <p className="font-sans text-lg text-charcoal-muted leading-relaxed">
+                  <p className="font-sans text-lg text-charcoal-muted leading-relaxed whitespace-pre-line">
                     {article.content}
                   </p>
                 </div>
@@ -187,7 +187,7 @@ function Entry({
                     {article.observations.map((obs, idx) => (
                       <li
                         key={idx}
-                        className="relative pl-6 before:absolute before:left-0 before:top-[12px] before:w-3 before:h-[1px] before:bg-border font-sans text-charcoal-muted"
+                        className="relative pl-6 before:absolute before:left-0 before:top-[12px] before:w-3 before:h-[1px] before:bg-border font-sans text-charcoal-muted whitespace-pre-line"
                       >
                         {obs}
                       </li>
@@ -195,7 +195,7 @@ function Entry({
                   </ul>
                 </div>
 
-                <blockquote className="border-l-2 border-charcoal pl-6 py-2 my-8 italic font-serif text-2xl text-charcoal opacity-90 leading-relaxed">
+                <blockquote className="border-l-2 border-charcoal pl-6 py-2 my-8 italic font-serif text-2xl text-charcoal opacity-90 leading-relaxed whitespace-pre-line">
                   "{article.quote}"
                 </blockquote>
               </div>

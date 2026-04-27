@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -156,20 +157,24 @@ func loadCategoryRecords(category Category) ([]bilingualRecord, error) {
 		}
 		date := strings.TrimSuffix(filename, ".json")
 		if !isValidDate(date) {
+			log.Printf("WARN newsdata: skip file with invalid date filename: %s", filepath.Join(categoryDir, filename))
 			continue
 		}
 
 		filePath := filepath.Join(categoryDir, filename)
 		content, err := os.ReadFile(filePath)
 		if err != nil {
+			log.Printf("WARN newsdata: failed reading file %s: %v", filePath, err)
 			continue
 		}
 
 		var record bilingualRecord
 		if err := json.Unmarshal(content, &record); err != nil {
+			log.Printf("WARN newsdata: invalid json in %s: %v", filePath, err)
 			continue
 		}
-		if !validateRecord(record, category, date) {
+		if ok, reason := validateRecord(record, category, date); !ok {
+			log.Printf("WARN newsdata: schema validation failed for %s: %s", filePath, reason)
 			continue
 		}
 
@@ -187,34 +192,46 @@ func loadCategoryRecords(category Category) ([]bilingualRecord, error) {
 	return output, nil
 }
 
-func validateRecord(record bilingualRecord, pathCategory Category, pathDate string) bool {
-	if record.ID == "" || record.Category != pathCategory || record.Date != pathDate {
-		return false
+func validateRecord(record bilingualRecord, pathCategory Category, pathDate string) (bool, string) {
+	if strings.TrimSpace(record.ID) == "" {
+		return false, "id is empty"
 	}
-	if !isLocalizedText(record.Title) || !isLocalizedText(record.Summary) || !isLocalizedText(record.Quote) {
-		return false
+	if record.Category != pathCategory {
+		return false, fmt.Sprintf("category mismatch: payload=%s path=%s", record.Category, pathCategory)
+	}
+	if record.Date != pathDate {
+		return false, fmt.Sprintf("date mismatch: payload=%s file=%s", record.Date, pathDate)
+	}
+	if !isLocalizedText(record.Title) {
+		return false, "title.en/zh is missing"
+	}
+	if !isLocalizedText(record.Summary) {
+		return false, "summary.en/zh is missing"
+	}
+	if !isLocalizedText(record.Quote) {
+		return false, "quote.en/zh is missing"
 	}
 	if len(record.Observations) == 0 || len(record.Links) == 0 {
-		return false
+		return false, "observations or links is empty"
 	}
 	for _, obs := range record.Observations {
 		if !isLocalizedText(obs) {
-			return false
+			return false, "one observation has missing en/zh"
 		}
 	}
 	for _, link := range record.Links {
 		if !isLocalizedText(link.Title) || link.URL == "" || link.Domain == "" {
-			return false
+			return false, "one link has invalid title/url/domain"
 		}
 		parsed, err := url.Parse(link.URL)
 		if err != nil || parsed.Host == "" {
-			return false
+			return false, fmt.Sprintf("invalid link url: %s", link.URL)
 		}
 		if !domainMatches(parsed.Host, link.Domain) {
-			return false
+			return false, fmt.Sprintf("domain mismatch for url=%s domain=%s", link.URL, link.Domain)
 		}
 	}
-	return true
+	return true, ""
 }
 
 func isLocalizedText(value localizedText) bool {

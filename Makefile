@@ -1,7 +1,7 @@
 APP_NAME := daily-news
 BIN_DIR := bin
 
-.PHONY: dev run-backend run-frontend build build-web build-backend clean \
+.PHONY: dev run-backend run-api run-frontend build build-web build-backend build-backend-api clean \
 	build-linux build-linux-arm64 build-macos build-macos-arm64 build-windows build-all
 
 dev:
@@ -10,6 +10,9 @@ dev:
 
 run-backend:
 	go run ./cmd/app
+
+run-api:
+	go run ./cmd/apiserver
 
 run-frontend:
 	npm run dev
@@ -22,6 +25,10 @@ build-web:
 build-backend:
 	mkdir -p $(BIN_DIR)
 	CGO_ENABLED=0 go build -o $(BIN_DIR)/$(APP_NAME) ./cmd/app
+
+build-backend-api:
+	mkdir -p $(BIN_DIR)
+	CGO_ENABLED=0 go build -o $(BIN_DIR)/$(APP_NAME)-api ./cmd/apiserver
 
 build-linux: build-web
 	mkdir -p $(BIN_DIR)

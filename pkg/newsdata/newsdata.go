@@ -13,6 +13,14 @@ import (
 	"time"
 )
 
+// 按日期读取原始 JSON 文件时的可识别错误。
+var (
+	ErrMissingDateParam    = errors.New("missing date query parameter")
+	ErrInvalidDateParam    = errors.New("invalid date format, expected YYYY-MM-DD")
+	ErrDailyFileNotFound   = errors.New("daily json file not found")
+	ErrDailyFileNotJSON    = errors.New("daily json file is not valid JSON")
+)
+
 type Category string
 type Language string
 
@@ -126,6 +134,37 @@ func DataRoot() (string, error) {
 		return "", err
 	}
 	return filepath.Join(homeDir, ".daily-news", "data"), nil
+}
+
+// LoadRawDailyJSON 读取指定栏目、指定日期的原始 JSON 文件字节（不做字段级校验，仅保证为合法 JSON）。
+func LoadRawDailyJSON(category Category, date string) ([]byte, error) {
+	if !IsValidCategory(string(category)) {
+		return nil, errors.New("invalid category")
+	}
+	date = strings.TrimSpace(date)
+	if date == "" {
+		return nil, ErrMissingDateParam
+	}
+	if !isValidDate(date) {
+		return nil, ErrInvalidDateParam
+	}
+
+	root, err := DataRoot()
+	if err != nil {
+		return nil, fmt.Errorf("data root: %w", err)
+	}
+	path := filepath.Join(root, string(category), date+".json")
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			return nil, fmt.Errorf("%w: %s", ErrDailyFileNotFound, path)
+		}
+		return nil, fmt.Errorf("read file: %w", err)
+	}
+	if len(raw) > 0 && !json.Valid(raw) {
+		return nil, fmt.Errorf("%w: %s", ErrDailyFileNotJSON, path)
+	}
+	return raw, nil
 }
 
 func loadCategoryRecords(category Category) ([]bilingualRecord, error) {
